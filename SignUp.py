@@ -6,11 +6,13 @@ import time
 
 username = 'michellechiang'
 password = '@@rSC801567'
-url = 'http://eip.msi.com.tw/EIP/portal_frame?key=bWVudV9sb2NhbGVrZXk9bXNpLm1lbnUuVDA0NDMwJm1pZD0zOCZhY3Rpdml0eV92aWV3PVFVTlVTVlpKVkZsZlNVUTlOemM1TlRBJTNE'
+url = 'http://172.16.2.66/EIP/portal_frame?key=bWVudV9sb2NhbGVrZXk9bXNpLm1lbnUuVDA0NDQ1Jm1pZD0zOCZhY3Rpdml0eV92aWV3PVFVTlVTVlpKVkZsZlNVUTlOemM1TmpFJTNE'
+
+# 記錄開始時間
+start_time = time.time()
 
 driver = webdriver.Chrome()
-wait = WebDriverWait(driver, 20)
-
+wait = WebDriverWait(driver, 10)
 driver.get(url)
 
 # Login 按鈕
@@ -44,6 +46,7 @@ driver.execute_script("arguments[0].click();", signUp_button1)
 signUp_button2 = wait.until(EC.presence_of_element_located((By.ID, "btn_signup")))
 driver.execute_script("arguments[0].click();", signUp_button2)
 
+'''
 #填寫資料
 fullname = 'POOH'
 age ='20'
@@ -52,19 +55,25 @@ age ='20'
 name = wait.until(EC.element_to_be_clickable((By.NAME, 'fullname')))
 name.send_keys(fullname)
 
-
 #gender
 gender = wait.until(EC.element_to_be_clickable((By.ID,'sex')))
 gender.click()
 
-
 #age 
 Age = wait.until(EC.element_to_be_clickable((By.NAME,'age')))
 Age.send_keys(age)
-
+'''
 
 # 儲存
-save_btn = wait.until(EC.presence_of_element_located((By.ID, "btn_save")))
+#save_btn = wait.until(EC.presence_of_element_located((By.ID, "btn_save")))
+save_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[4]/div/div/div[3]/button[2]")))
 driver.execute_script("arguments[0].click();", save_btn)
+
+# 記錄結束時間
+end_time = time.time()
+
+# 計算花費秒數
+elapsed_time = end_time - start_time
+print(f"程式執行到 click() 花費時間: {elapsed_time:.2f} 秒")
 
 time.sleep(2)
